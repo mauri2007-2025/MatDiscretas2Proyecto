@@ -9,11 +9,21 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+    public void start(Stage stage) {
+
+        Graph graph = new Graph();
+
+        FileManager.loadGraphFromFile("graph.txt", graph);
+
+        GraphVisualizer visualizer = new GraphVisualizer(graph);
+
+        Scene scene = new Scene(visualizer, 500, 500);
+
+        stage.setTitle("Graph Visualizer");
+
         stage.setScene(scene);
+
         stage.show();
+
     }
 }

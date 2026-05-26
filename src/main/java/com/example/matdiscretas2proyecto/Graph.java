@@ -108,4 +108,9 @@ public class Graph {
         return true;
 
     }
+    public HashMap<Integer, ArrayList<Edge>> getAdjacencyList() {
+
+        return adjacencyList;
+
+    }
 }
