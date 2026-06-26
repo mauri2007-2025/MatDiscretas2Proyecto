@@ -1,3 +1,5 @@
+package com.example.matdiscretas2proyecto;
+
 public class Edge {
     int target;
     int weight;
