@@ -1,4 +1,3 @@
-
 package com.example.matdiscretas2proyecto;
 
 import javafx.scene.layout.Pane;
