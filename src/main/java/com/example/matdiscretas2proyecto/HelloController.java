@@ -12,8 +12,3 @@ public class HelloController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 }
-
-
-/*
-Crear el algoritmo que va a representar los grafos dados por el profesor
- */

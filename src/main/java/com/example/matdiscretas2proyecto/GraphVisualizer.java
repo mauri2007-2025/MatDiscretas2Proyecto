@@ -1,4 +1,3 @@
-
 package com.example.matdiscretas2proyecto;
 
 import javafx.scene.layout.Pane;
@@ -24,11 +23,26 @@ public class GraphVisualizer extends Pane {
 
         HashMap<Integer, double[]> positions = new HashMap<>();
 
-        positions.put(0, new double[]{200, 100});
+        int n = graph.getAdjacencyList().size();
 
-        positions.put(1, new double[]{100, 250});
+        double centerX = 250;
+        double centerY = 250;
+        double radius = 150;
 
-        positions.put(2, new double[]{300, 250});
+        int index = 0;
+
+        for (Integer vertex : graph.getAdjacencyList().keySet()) {
+
+            double angle = 2 * Math.PI * index / n;
+
+            double x = centerX + radius * Math.cos(angle);
+
+            double y = centerY + radius * Math.sin(angle);
+
+            positions.put(vertex, new double[]{x, y});
+
+            index++;
+        }
 
         for (Integer source : graph.getAdjacencyList().keySet()) {
 
