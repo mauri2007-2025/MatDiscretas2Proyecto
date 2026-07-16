@@ -2,8 +2,25 @@ package com.example.matdiscretas2proyecto;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public class Graph {
+
+    private static class NodeDistance implements Comparable<NodeDistance> {
+
+        int vertex;
+        int distance;
+
+        public NodeDistance(int vertex, int distance) {
+            this.vertex = vertex;
+            this.distance = distance;
+        }
+
+        @Override
+        public int compareTo(NodeDistance other) {
+            return Integer.compare(this.distance, other.distance);
+        }
+    }
     private HashMap<Integer, ArrayList<Edge>> adjacencyList;
 
     public Graph() {
@@ -106,6 +123,126 @@ public class Graph {
         }
 
         return true;
+
+    }
+
+    private void dfs(int vertex, HashSet<Integer> visited) {
+
+        visited.add(vertex);
+
+        for (Edge edge : adjacencyList.get(vertex)) {
+
+            if (!visited.contains(edge.target)) {
+
+                dfs(edge.target, visited);
+
+            }
+
+        }
+
+    }
+
+    public boolean isTree() {
+
+        int vertices = adjacencyList.size();
+
+        int edges = 0;
+
+        for (Integer vertex : adjacencyList.keySet()) {
+
+            edges += adjacencyList.get(vertex).size();
+
+        }
+
+        edges /= 2;
+
+        if (edges != vertices - 1) {
+
+            return false;
+
+        }
+
+        HashSet<Integer> visited = new HashSet<>();
+
+        Integer start = adjacencyList.keySet().iterator().next();
+
+        dfs(start, visited);
+
+        return visited.size() == vertices;
+
+    }
+
+    public boolean hasEulerPath() {
+
+        int odd = 0;
+
+        for (Integer vertex : adjacencyList.keySet()) {
+
+            if (getVertexDegree(vertex) % 2 != 0) {
+
+                odd++;
+
+            }
+
+        }
+
+        return odd == 0 || odd == 2;
+
+    }
+
+    public boolean hasEulerCircuit() {
+
+        for (Integer vertex : adjacencyList.keySet()) {
+
+            if (getVertexDegree(vertex) % 2 != 0) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    public HashMap<Integer, Integer> dijkstra(int source) {
+
+        HashMap<Integer, Integer> distance = new HashMap<>();
+
+        PriorityQueue<NodeDistance> queue = new PriorityQueue<>();
+
+        for (Integer vertex : adjacencyList.keySet()) {
+
+            distance.put(vertex, Integer.MAX_VALUE);
+
+        }
+
+        distance.put(source, 0);
+
+        queue.add(new NodeDistance(source, 0));
+
+        while (!queue.isEmpty()) {
+
+            NodeDistance current = queue.poll();
+
+            for (Edge edge : adjacencyList.get(current.vertex)) {
+
+                int newDistance = distance.get(current.vertex) + edge.weight;
+
+                if (newDistance < distance.get(edge.target)) {
+
+                    distance.put(edge.target, newDistance);
+
+                    queue.add(new NodeDistance(edge.target, newDistance));
+
+                }
+
+            }
+
+        }
+
+        return distance;
 
     }
     public HashMap<Integer, ArrayList<Edge>> getAdjacencyList() {

@@ -58,9 +58,15 @@ public class GraphVisualizer extends Pane {
 
                 double midY = (y1 + y2) / 2;
 
-                Text weightText = new Text(midX +3, midY, String.valueOf(edge.weight));
+                double textX = midX;
+
+                double textY = midY;
+
+
+                Text weightText = new Text(textX, textY, String.valueOf(edge.weight));
 
                 getChildren().add(weightText);
+
 
             }
 

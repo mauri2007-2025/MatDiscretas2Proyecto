@@ -12,6 +12,20 @@ public class Main {
 
         System.out.println();
 
+        System.out.println("Is Tree? " + graph.isTree());
+
+        System.out.println("Has Euler Path? " + graph.hasEulerPath());
+
+        System.out.println("Has Euler Circuit? " + graph.hasEulerCircuit());
+
+        System.out.println();
+
+        System.out.println("Shortest distances from vertex 0:");
+
+        System.out.println(graph.dijkstra(0));
+
+        System.out.println();
+
         System.out.println("Degree of vertex 0: " + graph.getVertexDegree(0));
 
         System.out.println("Degree of vertex 1: " + graph.getVertexDegree(1));
